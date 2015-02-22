@@ -1,0 +1,99 @@
+---
+title       : Slidify
+subtitle    : First project
+author      : raicadaudinh
+job         : khong nghe nghiep
+framework   : revealjs       # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+
+---.class #id1 bg:yellow
+
+## Intercountry Life-Cycle Savings Data
+
+Data on the savings ratio 1960-1970.
+A data frame with 50 observations on 5 variables.
+
+1.         sr    aggregate personal savings </br>
+2.	 pop15	 % of population under 15 </br>
+3.	 pop75	 % of population over 75 </br>
+4.	 dpi	 real per-capita disposable income </br>
+5.	 ddpi	 % growth rate of dpi </br>
+
+
+_source_ "Sterling, Arnie (1977) Unpublished BS Thesis. Massachusetts Institute of Technology."" </br>
+"Belsley, D. A., Kuh. E. and Welsch, R. E. (1980) Regression Diagnostics. New York: Wiley."" 
+
+--- .class #id1 bg:yellow 
+
+## Data
+```{r, echo=TRUE}
+library(datasets)
+data(LifeCycleSavings)
+head(LifeCycleSavings)
+
+```
+
+
+
+
+
+
+
+
+
+
+---
+## Exploring data
+We can not conclude anything from the plot
+```{r, echo=TRUE}
+pairs(~.,data=LifeCycleSavings, 
+   main="Correlation matrix")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+## Regression model
+
+```{r, echo=TRUE}
+fit<- lm(sr~., data=LifeCycleSavings)
+summary(fit)$coefficients
+
+```
+
+
+
+
+
+
+
+
+
+
+
+---
+## Which variable coefficient's are significantly different from 0?
+
+
+
+<br/>
+-pop15 and ddpi
+</br>
+-explanation Pr(>|t|)<<0.5%
+
+
+

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Slidify</title>
+  <meta name="description" content="">
+  <meta name="author" content="raicadaudinh">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/reveal.min.css">
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/theme/default.css" id="theme">
+  <link rel="stylesheet" href="libraries/highlighters/highlight/css/tomorrow.css" id="theme">
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->  <link rel="stylesheet" href = "assets/css/ribbons.css">
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section class='class' data-state='' id='id1'>
+  <h2>Intercountry Life-Cycle Savings Data</h2>
+  <p>Data on the savings ratio 1960-1970.
+A data frame with 50 observations on 5 variables.</p>
+
+<ol>
+<li>        sr    aggregate personal savings </br></li>
+<li>  pop15   % of population under 15 </br></li>
+<li>  pop75   % of population over 75 </br></li>
+<li>  dpi     real per-capita disposable income </br></li>
+<li>  ddpi    % growth rate of dpi </br></li>
+</ol>
+
+<p><em>source</em> &quot;Sterling, Arnie (1977) Unpublished BS Thesis. Massachusetts Institute of Technology.&quot;&quot; </br>
+&quot;Belsley, D. A., Kuh. E. and Welsch, R. E. (1980) Regression Diagnostics. New York: Wiley.&quot;&quot; </p>
+
+</section>
+<section class='class' data-state='' id='id1'>
+  <h2>Data</h2>
+  <pre><code class="r">library(datasets)
+data(LifeCycleSavings)
+head(LifeCycleSavings)
+</code></pre>
+
+<pre><code>##              sr pop15 pop75     dpi ddpi
+## Australia 11.43 29.35  2.87 2329.68 2.87
+## Austria   12.07 23.32  4.41 1507.99 3.93
+## Belgium   13.17 23.80  4.43 2108.47 3.82
+## Bolivia    5.75 41.89  1.67  189.13 0.22
+## Brazil    12.88 42.19  0.83  728.47 4.56
+## Canada     8.79 31.72  2.85 2982.88 2.43
+</code></pre>
+
+</section>
+<section class='' data-state='' id='slide-3'>
+  <h2>Exploring data</h2>
+  <p>We can not conclude anything from the plot</p>
+
+<pre><code class="r">pairs(~.,data=LifeCycleSavings, 
+   main=&quot;Correlation matrix&quot;)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+</section>
+<section class='' data-state='' id='slide-4'>
+  <h2>Regression model</h2>
+  <pre><code class="r">fit&lt;- lm(sr~., data=LifeCycleSavings)
+summary(fit)$coefficients
+</code></pre>
+
+<pre><code>##                  Estimate   Std. Error    t value     Pr(&gt;|t|)
+## (Intercept) 28.5660865407 7.3545161062  3.8841558 0.0003338249
+## pop15       -0.4611931471 0.1446422248 -3.1885098 0.0026030189
+## pop75       -1.6914976767 1.0835989307 -1.5609998 0.1255297940
+## dpi         -0.0003369019 0.0009311072 -0.3618293 0.7191731554
+## ddpi         0.4096949279 0.1961971276  2.0881801 0.0424711387
+</code></pre>
+
+</section>
+<section class='' data-state='' id='slide-5'>
+  <h2>Which variable coefficient&#39;s are significantly different from 0?</h2>
+  <p><br/>
+-pop15 and ddpi
+</br>
+-explanation Pr(&gt;|t|)&lt;&lt;0.5%</p>
+
+</section>
+    </div>
+  </div>
+</body>
+  <script src="libraries/frameworks/revealjs/lib/js/head.min.js"></script>
+  <script src="libraries/frameworks/revealjs/js/reveal.min.js"></script>
+  <script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    theme: Reveal.getQueryHash().theme || 'default', 
+    transition: Reveal.getQueryHash().transition || 'default', 
+    dependencies: [
+    // Cross-browser shim that fully implements classList -
+    // https://github.com/eligrey/classList.js/
+      { src: 'libraries/frameworks/revealjs/lib/js/classList.js', condition: function() { return !document.body.classList;}},
+      // Zoom in and out with Alt+click
+      { src: 'libraries/frameworks/revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Speaker notes
+      { src: 'libraries/frameworks/revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Remote control your reveal.js presentation using a touch device
+      //{ src: 'libraries/frameworks/revealjs/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+  });
+  </script>   
+
+</html>
